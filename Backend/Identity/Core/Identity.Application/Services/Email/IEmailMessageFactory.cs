@@ -5,5 +5,5 @@ namespace Identity.Application.Services.Email;
 
 public interface IEmailMessageFactory
 {
-    public Task<ConfirmEmailMessage> CreateConfirmMessage(User user);
+    public Task<ConfirmEmailMessage> CreateConfirmMessageAsync(User user);
 }

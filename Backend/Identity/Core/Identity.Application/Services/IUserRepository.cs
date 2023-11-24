@@ -6,5 +6,5 @@ namespace Identity.Application.Services;
 
 public interface IUserRepository
 {
-    public Task<Result<User, RegisterError>> RegisterAsync(string email, string userName, string password);
+    public Task<Result<User, RegisterError>> RegisterAsync(User user, string password, CancellationToken cancellationToken);
 }

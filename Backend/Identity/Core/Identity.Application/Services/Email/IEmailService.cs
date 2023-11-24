@@ -1,6 +1,8 @@
-namespace Identity.Application.Services;
+using Identity.Application.Common.Models.Email;
+
+namespace Identity.Application.Services.Email;
 
 public interface IEmailService
 {
-    public Task SendEmailAsync();
+    public Task SendEmailMessageAsync(EmailMessage message);
 }
