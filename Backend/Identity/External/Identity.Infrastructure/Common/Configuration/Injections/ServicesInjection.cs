@@ -19,6 +19,6 @@ public static class ServicesInjection
         return services
             .AddScoped<IEmailService, EmailService>()
             .AddScoped<IEmailMessageFactory, EmailMessageFactory>()
-            .AddScoped<SmtpClientService>();
+            .AddSingleton<SmtpClientService>();
     }
 }

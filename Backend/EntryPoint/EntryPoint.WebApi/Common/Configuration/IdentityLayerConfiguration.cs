@@ -59,4 +59,6 @@ public class IdentityLayerConfiguration(IConfiguration configuration) :
         Password = configuration["Identity:Email:Password"] ?? throw new Exception("Identity:Email:Password is not set"),
         From = configuration["Identity:Email:From"] ?? throw new Exception("Identity:Email:From is not set")
     };
+
+    public string Host { get; } = configuration[WebHostDefaults.ServerUrlsKey] ?? throw new InvalidOperationException();
 }
