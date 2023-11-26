@@ -3,6 +3,7 @@ using Identity.Application.Services.Email;
 using Identity.Domain;
 using Identity.Persistence.Common.Configuration.Models;
 using Identity.Persistence.Services;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Identity.Persistence.Common.Configuration.Injections;
@@ -22,7 +23,10 @@ internal static class ServicesInjection
             options.User = configuration.Options.User;
             options.Password = configuration.Options.Password;
             options.SignIn = configuration.Options.SignIn;
-        });
+        })
+            .AddEntityFrameworkStores<IdentityDbContext>()
+            .AddDefaultTokenProviders()
+            .AddRoles<Role>();
 
         return services;
     }

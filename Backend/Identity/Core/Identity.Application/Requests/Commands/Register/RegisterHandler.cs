@@ -14,10 +14,10 @@ public class RegisterHandler(
         IUserRepository userRepository,
         IEmailService emailService,
         IEmailMessageFactory emailMessageFactory,
-        IApplicationConfiguration applicationConfiguration)
+        IIdentityApplicationConfiguration identityApplicationConfiguration)
     : IRequestHandler<RegisterRequest, Result<RegisterSuccess, RegisterError>>
 {
-    private readonly FeaturesConfiguration _featuresConfiguration = applicationConfiguration.Features;
+    private readonly IdentityFeaturesConfiguration _identityFeaturesConfiguration = identityApplicationConfiguration.IdentityFeatures;
     
     public async Task<Result<RegisterSuccess, RegisterError>> Handle(RegisterRequest request, CancellationToken cancellationToken)
     {
@@ -31,7 +31,7 @@ public class RegisterHandler(
             return responseFromRegister.GetFailure() ?? Error.InternalError<RegisterError>();
         }
 
-        if (_featuresConfiguration.SendEmailConfirmation)
+        if (_identityFeaturesConfiguration.SendEmailConfirmation)
         {
             await emailService.SendEmailMessageAsync(
                 await emailMessageFactory.CreateConfirmMessageAsync(responseFromRegister.GetSuccess()!));

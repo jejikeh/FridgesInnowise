@@ -7,12 +7,12 @@ namespace Identity.Persistence;
 
 public static class IdentityPersistenceInjection
 {
-    public static IServiceCollection UseIdentityPersistence(this IServiceCollection services, IPersistenceConfiguration persistenceConfiguration)
+    public static IServiceCollection UseIdentityPersistence(this IServiceCollection services, IIdentityPersistenceConfiguration identityPersistenceConfiguration)
     {
         return services
-            .UseDbProvider(persistenceConfiguration.DatabaseConfiguration)
+            .UseDbProvider(identityPersistenceConfiguration.DatabaseConfiguration)
             .UsePersistenceServices()
-            .UseIdentityServices(persistenceConfiguration.IdentityConfiguration);
+            .UseIdentityServices(identityPersistenceConfiguration.IdentityConfiguration);
     }
 
     private static IServiceCollection UseDbProvider(this IServiceCollection services, DatabaseConfiguration databaseConfiguration)

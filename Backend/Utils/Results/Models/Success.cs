@@ -3,11 +3,9 @@ namespace Results.Models;
 public class Success<TValue>
 {
     public TValue Value { get; }
-    public bool Visible { get; set; }
 
-    public Success(TValue value, bool visible = true)
+    public Success(TValue value)
     {
         Value = value;
-        Visible = visible;
     }
 }

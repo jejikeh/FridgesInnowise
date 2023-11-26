@@ -1,6 +1,6 @@
 namespace Identity.Application.Common.Configuration.Models;
 
-public class FeaturesConfiguration
+public class IdentityFeaturesConfiguration
 {
     public bool SendEmailConfirmation { get; set; }
 }
