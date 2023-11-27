@@ -18,13 +18,16 @@ public class UpdateAuthorizeTokenHandler(
         }
         
         var user = userResult.GetSuccess();
-        
-        var tokenValid = await tokenService.ValidateAuthorizeTokenAsync(request.UserId, request.RefreshToken);
-        if (!tokenValid)
+        var tokenValidationResult = await tokenService.ValidateAuthorizeTokenAsync(request.UserId, request.RefreshToken);
+        if (!tokenValidationResult.IsFailure)
         {
             return UpdateAuthorizeTokenError.InvalidToken();
         }
         
-        return new UpdateAuthorizeTokenSuccess(tokenService.GenerateAuthorizeToken(user!.Id, user.Email!));
+        return new UpdateAuthorizeTokenSuccess(
+            tokenService.GenerateAccessTokenUsingRefreshToken(
+                user!.Id, 
+                user.Email!, 
+                tokenValidationResult.GetSuccess()!));
     }
 }

@@ -5,7 +5,7 @@ using Identity.Application.Requests.Commands.ResendConfirmEmail;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
-namespace EntryPoint.WebApi.Controllers;
+namespace Identity.PresentationInjectionHelpers.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
@@ -63,6 +63,6 @@ public class UserController(ISender sender) : ControllerBase
             return BadRequest(result.GetFailure());
         }
         
-        return Ok(result.GetSuccess());
+        return Ok(result.GetSuccess()?.Value);
     }
 }

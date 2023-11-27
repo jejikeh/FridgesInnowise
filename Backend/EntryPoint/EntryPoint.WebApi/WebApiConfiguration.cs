@@ -1,44 +1,26 @@
-using EntryPoint.WebApi.Common.Configuration;
-using EntryPoint.WebApi.Common.Configuration.Injections;
-using Identity.Application;
-using Identity.Application.Common.Configuration;
-using Identity.Infrastructure;
-using Identity.Infrastructure.Common.Configuration;
-using Identity.Persistence;
-using Identity.Persistence.Common.Configuration;
+using EntryPoint.WebApi.Injections;
+using Identity.PresentationInjectionHelpers;
+using InjectionAssemblyFromAsAnotherAssembly;
 
 namespace EntryPoint.WebApi;
 
+[InjectService(typeof(IdentityInjectServiceHandler))]
 public static class WebApiConfiguration
 {
-    internal static WebApplicationBuilder Configure(this WebApplicationBuilder builder)
+    internal static WebApplicationBuilder ConfigureBuilder(this WebApplicationBuilder builder)
     {
-        builder.Configuration.AddJsonFile(
-            $"appsettings.Identity.{builder.Environment.EnvironmentName}.json", 
-            false, 
-            true);
-        
-        var identityLayerConfiguration = new IdentityLayerConfiguration(builder.Configuration);
-
-        builder.Services
-            .AddSingleton<IIdentityApplicationConfiguration>(identityLayerConfiguration)
-            .AddSingleton<IIdentityPersistenceConfiguration>(identityLayerConfiguration)
-            .AddSingleton<IIdentityInfrastructureConfiguration>(identityLayerConfiguration);
-        
-        builder.Services
-            .UseIdentityApplication()
-            .UseIdentityPersistence(identityLayerConfiguration)
-            .UseIdentityInfrastructure();
-
-        builder.Services
+        var mvcBuilder = builder.Services
             .AddSwagger()
             .AddEndpointsApiExplorer()
-            .AddControllers();
+            .AddControllers()
+            .AddJsonOptions(options => { options.JsonSerializerOptions.WriteIndented = true; });
+
+        builder.HandleInjectServiceAttribute(typeof(WebApiConfiguration), mvcBuilder);
 
         return builder;
     }
 
-    internal static WebApplication Configure(this WebApplication app)
+    internal static WebApplication ConfigureApplication(this WebApplication app)
     {
         app.MapControllers();
         app.UseHttpsRedirection();
@@ -54,23 +36,8 @@ public static class WebApiConfiguration
 
     internal static async Task<WebApplication> ExecuteAsync(this WebApplication app)
     {
-        using var scope = app.Services.CreateScope();
-        var serviceProvider = scope.ServiceProvider;
-        
-        try
-        {
-            var identityDbContext = serviceProvider.GetRequiredService<IdentityDbContext>();
-            await identityDbContext.Database.EnsureCreatedAsync();
-            
-            await app.RunAsync();
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine("ERROR:" + ex.Message);
-            
-            var logger = serviceProvider.GetRequiredService<ILogger<Program>>();
-            logger.LogError(ex, "Host terminated unexpectedly");
-        }
+        await app
+            .UseIdentityServiceExecuteAsync(application => application.RunAsync());
 
         return app;
     }

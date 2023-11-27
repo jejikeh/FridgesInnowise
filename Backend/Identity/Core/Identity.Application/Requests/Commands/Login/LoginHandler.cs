@@ -1,5 +1,4 @@
 using Identity.Application.Common.Models.Requests.Login;
-using Identity.Application.Common.Models.Tokens;
 using Identity.Application.Services;
 using MediatR;
 using Results.Models;
@@ -8,9 +7,9 @@ namespace Identity.Application.Requests.Commands.Login;
 
 public class LoginHandler(
     IUserRepository userRepository,
-    IAuthorizeTokenService tokenService) : IRequestHandler<LoginRequest, Result<AuthorizeTokens, LoginError>>
+    IAuthorizeTokenService tokenService) : IRequestHandler<LoginRequest, Result<LoginSuccess, LoginError>>
 {
-    public async Task<Result<AuthorizeTokens, LoginError>> Handle(LoginRequest request, CancellationToken cancellationToken)
+    public async Task<Result<LoginSuccess, LoginError>> Handle(LoginRequest request, CancellationToken cancellationToken)
     {
         var resultUser = await userRepository.GetUserByEmailAsync(request.Email);
         if (resultUser.IsFailure)
@@ -31,6 +30,6 @@ public class LoginHandler(
             return LoginError.EmailIsNotConfirmed();
         }
         
-        return tokenService.GenerateAuthorizeToken(user.Id, user.Email!);
+        return new LoginSuccess(tokenService.GenerateAuthorizeToken(user.Id, user.Email!));
     }
 }

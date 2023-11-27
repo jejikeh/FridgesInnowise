@@ -4,9 +4,11 @@ using Identity.Infrastructure.Common.Configuration;
 using Identity.Infrastructure.Common.Configuration.Models;
 using Identity.Persistence.Common.Configuration;
 using Identity.Persistence.Common.Configuration.Models;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Configuration;
 
-namespace EntryPoint.WebApi.Common.Configuration;
+namespace Identity.PresentationInjectionHelpers.Configuration;
 
 public class IdentityLayerConfiguration(IConfiguration configuration) :
     IIdentityApplicationConfiguration,

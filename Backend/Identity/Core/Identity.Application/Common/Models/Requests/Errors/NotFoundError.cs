@@ -8,5 +8,6 @@ public class NotFoundError : Error
     {
     }
     
-    public static NotFoundError UserNotFound() => new NotFoundError("User not found", 400, ErrorLevel.Critical);
+    public static NotFoundError UserNotFound() => new NotFoundError("User not found", 403, ErrorLevel.Critical);
+    public static NotFoundError TokenNotFound() => new NotFoundError("Token not found", 403, ErrorLevel.Critical);
 }

@@ -2,8 +2,8 @@ using EntryPoint.WebApi;
 
 var app = WebApplication
     .CreateBuilder(args)
-    .Configure()
+    .ConfigureBuilder()
     .Build()
-    .Configure();
+    .ConfigureApplication();
 
 await app.ExecuteAsync();

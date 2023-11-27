@@ -5,8 +5,8 @@ using Results.Models;
 
 namespace Identity.Application.Requests.Commands.Login;
 
-public class LoginRequest : IRequest<Result<AuthorizeTokens, LoginError>>
+public class LoginRequest : IRequest<Result<LoginSuccess, LoginError>>
 {
-    public string Email { get; set; }
-    public string Password { get; set; }
+    public string Email { get; set; } = string.Empty;
+    public string Password { get; set; } = string.Empty;
 }

@@ -1,4 +1,4 @@
-namespace EntryPoint.WebApi.Common.Configuration.Injections;
+namespace EntryPoint.WebApi.Injections;
 
 public static class SwaggerInjection
 {

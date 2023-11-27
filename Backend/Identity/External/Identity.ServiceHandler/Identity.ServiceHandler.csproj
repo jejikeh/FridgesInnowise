@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <RootNamespace>Identity.PresentationInjectionHelpers</RootNamespace>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\..\..\Utils\InjectionAssemblyAsAnotherAssembly\InjectionAssemblyAsAnotherAssembly.csproj" />
+      <ProjectReference Include="..\..\Core\Identity.Application\Identity.Application.csproj" />
+      <ProjectReference Include="..\Identity.Infrastructure\Identity.Infrastructure.csproj" />
+      <ProjectReference Include="..\Identity.Persistence\Identity.Persistence.csproj" />
+    </ItemGroup>
+
+
+
+</Project>

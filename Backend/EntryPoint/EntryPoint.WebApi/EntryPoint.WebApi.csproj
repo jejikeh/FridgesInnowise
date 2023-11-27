@@ -24,10 +24,7 @@
       <ProjectReference Include="..\..\Identity\Core\Identity.Application\Identity.Application.csproj" />
       <ProjectReference Include="..\..\Identity\External\Identity.Infrastructure\Identity.Infrastructure.csproj" />
       <ProjectReference Include="..\..\Identity\External\Identity.Persistence\Identity.Persistence.csproj" />
+      <ProjectReference Include="..\..\Identity\External\Identity.ServiceHandler\Identity.ServiceHandler.csproj" />
+      <ProjectReference Include="..\..\Utils\InjectionAssemblyAsAnotherAssembly\InjectionAssemblyAsAnotherAssembly.csproj" />
     </ItemGroup>
-
-
-
-
-
 </Project>
