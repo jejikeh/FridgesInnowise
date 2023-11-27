@@ -4,6 +4,8 @@ namespace Identity.Domain;
 
 public sealed class User : IdentityUser<Guid>
 {
+    public ICollection<RefreshToken> RefreshTokens { get; set; } = new List<RefreshToken>();
+    
     public User(string userName, string email)
     {
         Id = new Guid();

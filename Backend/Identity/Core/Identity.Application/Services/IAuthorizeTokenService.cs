@@ -1,4 +1,5 @@
 using Identity.Application.Common.Models.Tokens;
+using Identity.Domain;
 
 namespace Identity.Application.Services;
 

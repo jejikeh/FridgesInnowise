@@ -1,5 +1,8 @@
 using Identity.Application.Services.Email;
+using Identity.Infrastructure.Common.Configuration.Models;
+using Identity.Infrastructure.Services;
 using Identity.Infrastructure.Services.Email;
+using Identity.Persistence.Services;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Identity.Infrastructure.Common.Configuration.Injections;
@@ -10,7 +13,8 @@ public static class ServicesInjection
         this IServiceCollection services)
     {
         return services
-            .UseEmailServices();
+            .UseEmailServices()
+            .AddSingleton<IRandomAccessTokenProvider, JwtTokenProvider>();
     }
 
     private static IServiceCollection UseEmailServices(

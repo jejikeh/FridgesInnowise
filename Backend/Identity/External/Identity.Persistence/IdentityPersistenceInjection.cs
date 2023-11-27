@@ -11,8 +11,7 @@ public static class IdentityPersistenceInjection
     {
         return services
             .UseDbProvider(identityPersistenceConfiguration.DatabaseConfiguration)
-            .UsePersistenceServices()
-            .UseIdentityServices(identityPersistenceConfiguration.IdentityConfiguration);
+            .UsePersistenceServices(identityPersistenceConfiguration.IdentityConfiguration);
     }
 
     private static IServiceCollection UseDbProvider(this IServiceCollection services, DatabaseConfiguration databaseConfiguration)

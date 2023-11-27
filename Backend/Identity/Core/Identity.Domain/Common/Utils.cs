@@ -1,4 +1,4 @@
-namespace Identity.Application.Common;
+namespace Identity.Domain.Common;
 
 public static class Utils
 {

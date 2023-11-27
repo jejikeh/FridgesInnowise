@@ -51,6 +51,19 @@ public class IdentityLayerConfiguration(IConfiguration configuration) :
         }
     };
 
+    public RefreshTokenConfiguration RefreshTokenConfiguration { get; } = new RefreshTokenConfiguration
+    {
+        RefreshTokenValidityInSeconds = int.Parse(configuration["Identity:RefreshToken:RefreshTokenValidityInSeconds"] ?? "30")
+    };
+
+    public JwtTokenConfiguration JwtTokenConfiguration { get; } = new JwtTokenConfiguration
+    {
+        Issuer = configuration["Identity:JwtToken:Issuer"] ?? throw new Exception("Identity:JwtToken:Issuer is not set"),
+        Audience = configuration["Identity:JwtToken:Audience"] ?? throw new Exception("Identity:JwtToken:Audience is not set"),
+        Secret = configuration["Identity:JwtToken:Secret"] ?? throw new Exception("Identity:JwtToken:Secret is not set"),
+        ExpirationInSeconds = int.Parse(configuration["Identity:JwtToken:ExpirationInSeconds"] ?? "3600")
+    };
+
     public EmailConfiguration EmailConfiguration { get; } = new EmailConfiguration
     {
         Host = configuration["Identity:Email:Host"] ?? "Smtp",
@@ -59,6 +72,6 @@ public class IdentityLayerConfiguration(IConfiguration configuration) :
         Password = configuration["Identity:Email:Password"] ?? throw new Exception("Identity:Email:Password is not set"),
         From = configuration["Identity:Email:From"] ?? throw new Exception("Identity:Email:From is not set")
     };
-
+    
     public string Host { get; } = configuration[WebHostDefaults.ServerUrlsKey] ?? throw new InvalidOperationException();
 }
