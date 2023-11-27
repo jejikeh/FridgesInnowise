@@ -15,20 +15,20 @@ public class ConfirmEmailHandler(IUserRepository userRepository) :
         var resultUserById = await userRepository.GetUserByIdAsync(request.Id);
         if (resultUserById.IsFailure)
         {
-            return Result<ConfirmEmailSuccess, ConfirmEmailError>.Failure(ConfirmEmailError.UserNotFound());
+            return ConfirmEmailError.UserNotFound();
         }
         
         var user = resultUserById.GetSuccess();
 
         if (user!.EmailConfirmed)
         {
-            return Result<ConfirmEmailSuccess, ConfirmEmailError>.Failure(ConfirmEmailError.UserAlreadyConfirmed());
+            return ConfirmEmailError.UserAlreadyConfirmed();
         }
         
         var resultConfirmEmail = await userRepository.ConfirmEmailAsync(user!, Encoding.UTF8.GetString(WebEncoders.Base64UrlDecode(request.Token)));
         
         return resultConfirmEmail.IsFailure 
-            ? Result<ConfirmEmailSuccess, ConfirmEmailError>.Failure(ConfirmEmailError.WrongToken()) 
-            : Result<ConfirmEmailSuccess, ConfirmEmailError>.Success(new ConfirmEmailSuccess("Email confirmed"));
+            ? ConfirmEmailError.WrongToken()
+            : new ConfirmEmailSuccess("Email confirmed");
     }
 }

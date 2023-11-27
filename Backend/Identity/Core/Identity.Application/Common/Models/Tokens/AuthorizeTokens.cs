@@ -1,3 +1,3 @@
 namespace Identity.Application.Common.Models.Tokens;
 
-public record AuthorizeTokens(string AccessToken, string RefreshToken);
+public record AuthorizeTokens(Guid Id, string AccessToken, RefreshToken RefreshToken);

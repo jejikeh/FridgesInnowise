@@ -5,4 +5,5 @@ namespace Identity.Persistence.Common.Configuration.Models;
 public class IdentityConfiguration
 {
     public IdentityOptions Options { get; set; }
+    public int RefreshTokenValidityInSeconds { get; set; }
 }

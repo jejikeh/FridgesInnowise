@@ -11,5 +11,7 @@ public interface IUserRepository
     public Task<Result<User, RegisterError>> RegisterAsync(User user, string password, CancellationToken cancellationToken);
     public Task<string> GenerateEmailConfirmationTokenAsync(User user);
     public Task<Result<User?, NotFoundError>> GetUserByIdAsync(Guid userId);
+    public Task<Result<User?, NotFoundError>> GetUserByEmailAsync(string email);
     Task<Result<ConfirmEmailSuccess, ConfirmEmailError>> ConfirmEmailAsync(User user, string requestToken);
+    Task<bool> CheckPasswordAsync(User user, string requestPassword);
 }

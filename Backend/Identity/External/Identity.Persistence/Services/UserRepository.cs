@@ -34,9 +34,16 @@ public class UserRepository(UserManager<User> userManager) : IUserRepository
     {
         var user = await userManager.FindByIdAsync(userId.ToString());
         return user is null 
-            ? Result<User?, NotFoundError>.Failure(NotFoundError.UserNotFound()) 
-            : Result<User?, NotFoundError>.Success(user);
+            ? NotFoundError.UserNotFound() 
+            : user;
+    }
 
+    public async Task<Result<User?, NotFoundError>> GetUserByEmailAsync(string email)
+    {
+        var user = await userManager.FindByEmailAsync(email);
+        return user is null 
+            ? NotFoundError.UserNotFound() 
+            : user;
     }
 
     public async Task<Result<ConfirmEmailSuccess, ConfirmEmailError>> ConfirmEmailAsync(User user, string requestToken)
@@ -44,12 +51,17 @@ public class UserRepository(UserManager<User> userManager) : IUserRepository
         var result = await userManager.ConfirmEmailAsync(user, requestToken);
         if (result.Succeeded)
         {
-            return Result<ConfirmEmailSuccess, ConfirmEmailError>.Success(new ConfirmEmailSuccess("Email confirmed"));
+            return new ConfirmEmailSuccess("Email confirmed");
         }
         
         var errors = result.Errors.Select(error =>
             new Error(error.Description, 500));
             
-        return Result<ConfirmEmailSuccess, ConfirmEmailError>.Failure(new ConfirmEmailError("Failed to create user", 500, ErrorLevel.Important, errors.ToArray()));
+        return new ConfirmEmailError("Failed to create user", 500, ErrorLevel.Important, errors.ToArray());
+    }
+
+    public Task<bool> CheckPasswordAsync(User user, string requestPassword)
+    {
+        return userManager.CheckPasswordAsync(user, requestPassword);
     }
 }
