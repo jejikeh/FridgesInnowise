@@ -3,4 +3,10 @@ using MediatR;
 
 namespace Fridges.Application.Requests.Manufactures.Commands.CreateManufacture;
 
-public record CreateManufactureRequest(string Name) : IRequest<Manufacture>;
+public record CreateManufactureRequest(string Name) : IRequest<Manufacture>
+{
+    public CreateManufactureRequest() : this(string.Empty)
+    {
+        
+    }
+}
