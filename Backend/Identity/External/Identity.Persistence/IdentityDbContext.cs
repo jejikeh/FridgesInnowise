@@ -1,22 +1,23 @@
 using System.Reflection;
 using Identity.Application.Common.Models.Tokens;
 using Identity.Domain;
+using Identity.Persistence.Common.Configuration;
+using Identity.Persistence.Services.ModelConfiguration;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace Identity.Persistence;
 
-public class IdentityDbContext : IdentityDbContext<User, Role, Guid>
+public class IdentityDbContext(DbContextOptions<IdentityDbContext> options, IIdentityPersistenceConfiguration configuration)
+    : IdentityDbContext<User, Role, Guid>(options)
 {
     public DbSet<RefreshToken> RefreshTokens { get; set; }
-
-    public IdentityDbContext(DbContextOptions<IdentityDbContext> options) : base(options)
-    {
-    }
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
         base.OnModelCreating(builder);
+        
         builder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+        builder.ApplyConfiguration(new SeedAdminUserConfiguration(configuration));
     }
 }

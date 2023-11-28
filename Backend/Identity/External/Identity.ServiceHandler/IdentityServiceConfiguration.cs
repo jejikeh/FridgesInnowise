@@ -8,9 +8,9 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 
-namespace Identity.PresentationInjectionHelpers.Configuration;
+namespace Identity.PresentationInjectionHelpers;
 
-public class IdentityLayerConfiguration(IConfiguration configuration) :
+public class IdentityServiceConfiguration(IConfiguration configuration) :
     IIdentityApplicationConfiguration,
     IIdentityPersistenceConfiguration,
     IIdentityInfrastructureConfiguration
@@ -56,6 +56,15 @@ public class IdentityLayerConfiguration(IConfiguration configuration) :
     public RefreshTokenConfiguration RefreshTokenConfiguration { get; } = new RefreshTokenConfiguration
     {
         RefreshTokenValidityInSeconds = int.Parse(configuration["Identity:RefreshToken:RefreshTokenValidityInSeconds"] ?? "30")
+    };
+
+    public SeedDataConfiguration SeedDataConfiguration { get; } = new SeedDataConfiguration
+    {
+        Seed = bool.Parse(configuration["Identity:SeedData:Seed"] ?? "false"),
+        AdminId = Guid.Parse(configuration["Identity:SeedData:AdminId"] ?? throw new Exception("Identity:SeedData:AdminId is not set")),
+        AdminPassword = configuration["Identity:SeedData:AdminPassword"] ?? throw new Exception("Identity:SeedData:AdminPassword is not set"),
+        AdminEmail = configuration["Identity:SeedData:AdminEmail"] ?? throw new Exception("Identity:SeedData:AdminEmail is not set"),
+        AdminUserName = configuration["Identity:SeedData:AdminUsername"] ?? throw new Exception("Identity:SeedData:AdminUsername is not set"),
     };
 
     public JwtTokenConfiguration JwtTokenConfiguration { get; } = new JwtTokenConfiguration

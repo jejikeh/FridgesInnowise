@@ -11,4 +11,5 @@ public interface IAuthorizeTokenService
     public RefreshToken GenerateRandomRefreshToken(Guid userId);
     public AuthorizeTokens GenerateAccessTokenUsingRefreshToken(Guid userId, string email, RefreshToken refreshToken);
     public Task<Result<RefreshToken, AuthorizationError>> ValidateAuthorizeTokenAsync(Guid userId, string token);
+    public Task<List<RefreshToken>> GetRefreshTokensAsync(Guid userId);
 }

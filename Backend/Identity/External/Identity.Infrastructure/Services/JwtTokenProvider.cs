@@ -25,7 +25,7 @@ public class JwtTokenProvider(IIdentityInfrastructureConfiguration configuration
             signingCredentials: new SigningCredentials(
                 new SymmetricSecurityKey(
                     Encoding.UTF8.GetBytes(_jwtTokenConfiguration.Secret)),
-                SecurityAlgorithms.HmacSha512Signature
+                SecurityAlgorithms.HmacSha256Signature
             )
         );
         

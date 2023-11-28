@@ -8,10 +8,6 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <Folder Include="Requests\Queries\" />
-    </ItemGroup>
-
-    <ItemGroup>
       <PackageReference Include="MediatR" Version="12.2.0" />
     </ItemGroup>
 
@@ -19,5 +15,6 @@
       <ProjectReference Include="..\..\..\Utils\Results\Results.csproj" />
       <ProjectReference Include="..\Identity.Domain\Identity.Domain.csproj" />
     </ItemGroup>
+
 
 </Project>

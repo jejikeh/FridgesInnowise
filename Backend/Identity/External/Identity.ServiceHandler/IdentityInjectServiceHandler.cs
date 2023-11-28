@@ -5,7 +5,6 @@ using Identity.Infrastructure;
 using Identity.Infrastructure.Common.Configuration;
 using Identity.Persistence;
 using Identity.Persistence.Common.Configuration;
-using Identity.PresentationInjectionHelpers.Configuration;
 using Identity.PresentationInjectionHelpers.Controllers;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
@@ -27,7 +26,7 @@ public static class IdentityInjectServiceHandler
             false, 
             true);
         
-        var identityLayerConfiguration = new IdentityLayerConfiguration(builder.Configuration);
+        var identityLayerConfiguration = new IdentityServiceConfiguration(builder.Configuration);
 
         builder.Services
             .AddSingleton<IIdentityApplicationConfiguration>(identityLayerConfiguration)
@@ -37,7 +36,7 @@ public static class IdentityInjectServiceHandler
         builder.Services
             .UseIdentityApplication()
             .UseIdentityPersistence(identityLayerConfiguration)
-            .UseIdentityInfrastructure();
+            .UseIdentityInfrastructure(identityLayerConfiguration);
         
         return builder;
     }

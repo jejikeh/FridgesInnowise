@@ -16,4 +16,16 @@ public sealed class User : IdentityUser<Guid>
         Email = email;
         NormalizedUserName = userName.ToUpper();
     }
+
+    public User(Guid id, string userName, string email) : this(userName, email)
+    {
+        Id = id;
+        UserName = userName;
+        NormalizedUserName = userName.ToUpper();
+        Email = email;
+        NormalizedEmail = email.ToUpper();
+        EmailConfirmed = true;
+        SecurityStamp = Guid.NewGuid().ToString("D");
+        PhoneNumber = "+000000000000";
+    }
 }

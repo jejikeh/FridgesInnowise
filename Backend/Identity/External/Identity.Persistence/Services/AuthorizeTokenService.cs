@@ -58,4 +58,9 @@ public class AuthorizeTokenService(
 
         return refreshToken!;
     }
+
+    public Task<List<RefreshToken>> GetRefreshTokensAsync(Guid userId)
+    {
+        return context.RefreshTokens.Where(x => x.UserId == userId).ToListAsync();
+    }
 }

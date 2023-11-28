@@ -27,8 +27,7 @@ public class InjectServiceAttribute(Type loadAssemblyServiceType) : Attribute
         {
             Console.WriteLine($"Controllers from {LoadAssemblyService} has been injected: {controller.GetType().Assembly}");
             
-            builder
-                .AddApplicationPart(controller.GetType().Assembly);
+            builder.AddApplicationPart(controller.GetType().Assembly);
         }
         
         var useServices = injectHandlerType.GetMethod("UseService");

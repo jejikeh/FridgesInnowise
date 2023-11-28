@@ -1,8 +1,12 @@
+using Identity.Application.Common.Models.Requests.UpdateAuthorizeToken;
 using Identity.Application.Requests.Commands.ConfirmEmail;
 using Identity.Application.Requests.Commands.Login;
 using Identity.Application.Requests.Commands.Register;
 using Identity.Application.Requests.Commands.ResendConfirmEmail;
+using Identity.Application.Requests.Commands.UpdateAuthorizeToken;
+using Identity.Application.Requests.Queries.GetRefreshTokens;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Identity.PresentationInjectionHelpers.Controllers;
@@ -55,6 +59,34 @@ public class UserController(ISender sender) : ControllerBase
 
     [HttpPost("login")]
     public async Task<IActionResult> LoginUser([FromBody] LoginRequest request)
+    {
+        var result = await sender.Send(request);
+
+        if (result.IsFailure)
+        {
+            return BadRequest(result.GetFailure());
+        }
+        
+        return Ok(result.GetSuccess()?.Value);
+    }
+    
+    // TODO(jejikeh): Move that to separate controller
+    [HttpPost("update-access-token")]
+    public async Task<IActionResult> UpdateAccessToken([FromBody] UpdateAuthorizeTokenRequest request)
+    {
+        var result = await sender.Send(request);
+
+        if (result.IsFailure)
+        {
+            return BadRequest(result.GetFailure());
+        }
+        
+        return Ok(result.GetSuccess()?.Value);
+    }
+
+    [Authorize]
+    [HttpGet("refresh-token")]
+    public async Task<IActionResult> RefreshToken([FromQuery] GetRefreshTokensRequest request)
     {
         var result = await sender.Send(request);
 

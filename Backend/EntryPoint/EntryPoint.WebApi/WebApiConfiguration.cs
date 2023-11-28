@@ -30,6 +30,9 @@ public static class WebApiConfiguration
             app.UseSwagger();
             app.UseSwaggerUI();
         }
+        
+        app.UseAuthentication();
+        app.UseAuthorization();
 
         return app;
     }
