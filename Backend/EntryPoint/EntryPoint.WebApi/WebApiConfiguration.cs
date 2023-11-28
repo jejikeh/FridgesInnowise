@@ -1,3 +1,5 @@
+using System.Text.Json;
+using System.Text.Json.Serialization;
 using EntryPoint.WebApi.Injections;
 using Fridges.ServiceHandler;
 using Identity.PresentationInjectionHelpers;
@@ -15,7 +17,12 @@ public static class WebApiConfiguration
             .AddSwagger()
             .AddEndpointsApiExplorer()
             .AddControllers()
-            .AddJsonOptions(options => { options.JsonSerializerOptions.WriteIndented = true; });
+            .AddJsonOptions(options =>
+            {
+                options.JsonSerializerOptions.WriteIndented = true;
+                options.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.KebabCaseLower;
+                options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+            });
 
         builder.HandleInjectServiceAttribute(typeof(WebApiConfiguration), mvcBuilder);
 

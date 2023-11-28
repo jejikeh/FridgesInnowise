@@ -19,7 +19,7 @@ public class ManufactureController(ISender sender) : ControllerBase
         int page,
         CancellationToken cancellationToken)
     {
-        var command = new GetManufacturesCommand(page);
+        var command = new GetManufacturesRequest(page);
         var response = await sender.Send(command, cancellationToken);
 
         return Ok(response);
@@ -30,7 +30,7 @@ public class ManufactureController(ISender sender) : ControllerBase
         Guid id,
         CancellationToken cancellationToken)
     {
-        var command = new GetManufactureCommand(id);
+        var command = new GetManufactureRequest(id);
         var response = await sender.Send(command, cancellationToken);
         
         return Ok(response);
@@ -42,7 +42,7 @@ public class ManufactureController(ISender sender) : ControllerBase
         int page,
         CancellationToken cancellationToken)
     {
-        var command = new GetManufactureModelsCommands(id, page);
+        var command = new GetManufactureModelsRequest(id, page);
         var response = await sender.Send(command, cancellationToken);
         
         return Ok(response);
@@ -50,7 +50,7 @@ public class ManufactureController(ISender sender) : ControllerBase
 
     [HttpPost]
     public async Task<IActionResult> CreateManufacture(
-        CreateManufactureCommand request,
+        CreateManufactureRequest request,
         CancellationToken cancellationToken)
     {
         var response = await sender.Send(request, cancellationToken);
@@ -63,7 +63,7 @@ public class ManufactureController(ISender sender) : ControllerBase
         Guid id,
         CancellationToken cancellationToken)
     {
-        var command = new DeleteManufactureCommand(id);
+        var command = new DeleteManufactureRequest(id);
         await sender.Send(command, cancellationToken);
         
         return NoContent();
@@ -71,7 +71,7 @@ public class ManufactureController(ISender sender) : ControllerBase
 
     [HttpPut]
     public async Task<IActionResult> UpdateManufacture(
-        UpdateManufactureCommand request,
+        UpdateManufactureRequest request,
         CancellationToken cancellationToken)
     {
         var response = await sender.Send(request, cancellationToken);

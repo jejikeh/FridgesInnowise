@@ -10,6 +10,7 @@ public class ProductRepository(FridgesDbContext fridgesDbContext) : IProductRepo
     {
         return await fridgesDbContext.Products
             .AsQueryable()
+            .Include(product => product.FridgeProducts)
             .Skip(skipCount)
             .Take(takeCount)
             .ToListAsync(cancellationToken);
@@ -19,6 +20,8 @@ public class ProductRepository(FridgesDbContext fridgesDbContext) : IProductRepo
     {
         return await fridgesDbContext
             .Products
+            .AsQueryable()
+            .Include(product => product.FridgeProducts)
             .FirstOrDefaultAsync(product => product.Id == id, cancellationToken);
     }
 

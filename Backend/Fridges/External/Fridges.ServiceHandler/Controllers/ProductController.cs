@@ -17,7 +17,7 @@ public class ProductController(ISender sender) : ControllerBase
         int page,
         CancellationToken cancellationToken)
     {
-        var command = new GetProductsCommand(page);
+        var command = new GetProductsRequest(page);
         var response = await sender.Send(command, cancellationToken);
 
         return Ok(response);
@@ -28,7 +28,7 @@ public class ProductController(ISender sender) : ControllerBase
         Guid id,
         CancellationToken cancellationToken)
     {
-        var command = new GetProductCommand(id);
+        var command = new GetProductRequest(id);
         var response = await sender.Send(command, cancellationToken);
         
         return Ok(response);
@@ -36,7 +36,7 @@ public class ProductController(ISender sender) : ControllerBase
     
     [HttpPost]
     public async Task<IActionResult> CreateProduct(
-        CreateProductCommand request,
+        CreateProductRequest request,
         CancellationToken cancellationToken)
     {
         var response = await sender.Send(request, cancellationToken);
@@ -49,7 +49,7 @@ public class ProductController(ISender sender) : ControllerBase
         Guid id,
         CancellationToken cancellationToken)
     {
-        var command = new DeleteProductCommand(id);
+        var command = new DeleteProductRequest(id);
         await sender.Send(command, cancellationToken);
         
         return NoContent();
@@ -57,7 +57,7 @@ public class ProductController(ISender sender) : ControllerBase
 
     [HttpPut]
     public async Task<IActionResult> UpdateProduct(
-        UpdateProductCommand request,
+        UpdateProductRequest request,
         CancellationToken cancellationToken)
     {
         var response = await sender.Send(request, cancellationToken);

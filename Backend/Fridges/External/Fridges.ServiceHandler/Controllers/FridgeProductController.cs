@@ -21,7 +21,7 @@ public class FridgeProductController(ISender sender) : ControllerBase
         int page,
         CancellationToken cancellationToken)
     {
-        var command = new GetFridgeProductsCommand(fridgeId, page);
+        var command = new GetFridgeProductsRequest(fridgeId, page);
         var response = await sender.Send(command, cancellationToken);
 
         return Ok(response);
@@ -32,7 +32,7 @@ public class FridgeProductController(ISender sender) : ControllerBase
         Guid id,
         CancellationToken cancellationToken)
     {
-        var command = new GetProductCommand(id);
+        var command = new GetProductRequest(id);
         var response = await sender.Send(command, cancellationToken);
         
         return Ok(response);
@@ -40,7 +40,7 @@ public class FridgeProductController(ISender sender) : ControllerBase
     
     [HttpPost]
     public async Task<IActionResult> CreateFridgeProduct(
-        CreateFridgeProductCommand request,
+        CreateFridgeProductRequest request,
         CancellationToken cancellationToken)
     {
         var response = await sender.Send(request, cancellationToken);
@@ -53,7 +53,7 @@ public class FridgeProductController(ISender sender) : ControllerBase
         Guid id,
         CancellationToken cancellationToken)
     {
-        var command = new DeleteFridgeProductCommand(id);
+        var command = new DeleteFridgeProductRequest(id);
         await sender.Send(command, cancellationToken);
         
         return NoContent();
@@ -61,7 +61,7 @@ public class FridgeProductController(ISender sender) : ControllerBase
 
     [HttpPut]
     public async Task<IActionResult> UpdateFridgeProduct(
-        UpdateProductCommand request,
+        UpdateProductRequest request,
         CancellationToken cancellationToken)
     {
         var response = await sender.Send(request, cancellationToken);
