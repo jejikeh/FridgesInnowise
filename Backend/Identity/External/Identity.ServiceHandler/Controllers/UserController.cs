@@ -20,7 +20,7 @@ public class UserController(ISender sender) : ControllerBase
     {
         var result = await sender.Send(request);
         
-        // TODO(jejikeh)?: move that to ErrorHandlePipeline in Identity.Application
+        // TODO(jejikeh)?: move that to ErrorHandlePipeline in Identity.Fridges.Application
         if (result.IsFailure)
         {
             return BadRequest(result.GetFailure());
@@ -34,7 +34,7 @@ public class UserController(ISender sender) : ControllerBase
     {
         var result = await sender.Send(request);
         
-        // TODO(jejikeh)?: move that to ErrorHandlePipeline in Identity.Application
+        // TODO(jejikeh)?: move that to ErrorHandlePipeline in Identity.Fridges.Application
         if (result.IsFailure)
         {
             return BadRequest(result.GetFailure());
@@ -48,7 +48,7 @@ public class UserController(ISender sender) : ControllerBase
     {
         var result = await sender.Send(request);
         
-        // TODO(jejikeh)?: move that to ErrorHandlePipeline in Identity.Application
+        // TODO(jejikeh)?: move that to ErrorHandlePipeline in Identity.Fridges.Application
         if (result.IsFailure)
         {
             return BadRequest(result.GetFailure());

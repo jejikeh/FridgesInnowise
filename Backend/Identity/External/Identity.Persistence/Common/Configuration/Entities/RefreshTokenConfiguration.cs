@@ -1,10 +1,8 @@
-using Identity.Application.Common.Models.Tokens;
 using Identity.Domain;
-using Microsoft.AspNetCore.Server.Kestrel.Core.Internal.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Identity.Persistence.Services.ModelConfiguration;
+namespace Identity.Persistence.Common.Configuration.Entities;
 
 public class RefreshTokenConfiguration : IEntityTypeConfiguration<RefreshToken>
 {

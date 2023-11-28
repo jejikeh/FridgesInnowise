@@ -1,10 +1,12 @@
 using EntryPoint.WebApi.Injections;
+using Fridges.ServiceHandler;
 using Identity.PresentationInjectionHelpers;
 using InjectionAssemblyFromAsAnotherAssembly;
 
 namespace EntryPoint.WebApi;
 
 [InjectService(typeof(IdentityInjectServiceHandler))]
+[InjectService(typeof(FridgesInjectServiceHandler))]
 public static class WebApiConfiguration
 {
     internal static WebApplicationBuilder ConfigureBuilder(this WebApplicationBuilder builder)
@@ -39,8 +41,9 @@ public static class WebApiConfiguration
 
     internal static async Task<WebApplication> ExecuteAsync(this WebApplication app)
     {
-        await app
-            .UseIdentityServiceExecuteAsync(application => application.RunAsync());
+        await app.UseIdentityServiceExecuteAsync(
+            identityApplication => identityApplication.UseFridgesServiceExecuteAsync(
+                fridgesApplication => fridgesApplication.RunAsync()));
 
         return app;
     }

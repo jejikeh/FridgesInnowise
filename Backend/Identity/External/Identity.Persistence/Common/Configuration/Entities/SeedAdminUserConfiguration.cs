@@ -1,11 +1,10 @@
 using Identity.Domain;
-using Identity.Persistence.Common.Configuration;
 using Identity.Persistence.Common.Configuration.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Identity.Persistence.Services.ModelConfiguration;
+namespace Identity.Persistence.Common.Configuration.Entities;
 
 public class SeedAdminUserConfiguration(IIdentityPersistenceConfiguration persistenceConfiguration) : IEntityTypeConfiguration<User>
 {

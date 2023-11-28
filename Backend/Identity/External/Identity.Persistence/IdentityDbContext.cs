@@ -2,7 +2,7 @@ using System.Reflection;
 using Identity.Application.Common.Models.Tokens;
 using Identity.Domain;
 using Identity.Persistence.Common.Configuration;
-using Identity.Persistence.Services.ModelConfiguration;
+using Identity.Persistence.Common.Configuration.Entities;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 

@@ -13,14 +13,4 @@ public static class IdentityPersistenceInjection
             .UseDbProvider(identityPersistenceConfiguration.DatabaseConfiguration)
             .UsePersistenceServices(identityPersistenceConfiguration.IdentityConfiguration);
     }
-
-    private static IServiceCollection UseDbProvider(this IServiceCollection services, DatabaseConfiguration databaseConfiguration)
-    {
-        return databaseConfiguration.DbProvider switch
-        {
-            SupportedDbProvider.Sqlite => services.UseSqliteProvider(databaseConfiguration.ConnectionString),
-            SupportedDbProvider.Postgresql => services.UsePostgresqlProvider(databaseConfiguration.ConnectionString),
-            _ => throw new ArgumentOutOfRangeException(nameof(databaseConfiguration.DbProvider), databaseConfiguration.DbProvider, null)
-        };
-    }
 }
