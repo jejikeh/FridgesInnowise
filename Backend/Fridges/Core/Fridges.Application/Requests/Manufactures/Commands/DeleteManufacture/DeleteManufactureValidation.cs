@@ -6,5 +6,8 @@ public class DeleteManufactureValidation : AbstractValidator<DeleteManufactureRe
 {
     public DeleteManufactureValidation()
     {
+        RuleFor(x => x.Id)
+            .NotEmpty()
+            .NotEqual(Guid.Empty);
     }
 }

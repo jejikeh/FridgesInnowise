@@ -8,7 +8,7 @@ using InjectionAssemblyFromAsAnotherAssembly;
 namespace EntryPoint.WebApi;
 
 [InjectService(typeof(IdentityInjectServiceHandler))]
-[InjectService(typeof(IdentityInjectServiceHandler))]
+[InjectService(typeof(FridgesInjectServiceHandler))]
 public static class WebApiConfiguration
 {
     internal static WebApplicationBuilder ConfigureBuilder(this WebApplicationBuilder builder)
